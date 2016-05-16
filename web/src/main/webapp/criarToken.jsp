@@ -4,7 +4,7 @@
 <%@page import="br.com.cbmp.ecommerce.pedido.Modalidade"%>
 <html>
 	<head>
-		<title>Loja Exemplo : Criação de Token</title>
+		<title>Loja Exemplo : Criaï¿½ï¿½o de Token</title>
 	</head>
 	<center>
 		<h2>
@@ -13,20 +13,20 @@
 		<form name="frm" action="criandoToken.jsp" method="post">
 			<table border="1">
 				<tr>
-					<td>Cartão</td>
+					<td>Cartï¿½o</td>
 					<td>
 						<table border="0">
 							<tr>
-								<td>Número</td>
-								<td><input type="text" name="cartao.numero" value="4551870000000183"></td>
+								<td>Nï¿½mero</td>
+								<td><input type="text" name="cartao.numero" value="4012001038443335"></td>
 							</tr>
 							<tr>
 								<td>Validade (jun/2010 = 201006)</td>
-								<td><input type="text" name="cartao.validade" value="201508"></td>
+								<td><input type="text" name="cartao.validade" value="201805"></td>
 							</tr>
 							<tr>
-								<td>Cód. Segurança</td>
-								<td><input type="text" name="cartao.codigoSeguranca" value="973"></td>
+								<td>Cï¿½d. Seguranï¿½a</td>
+								<td><input type="text" name="cartao.codigoSeguranca" value="123"></td>
 							</tr>
 							<tr>
 								<td>Nome Portador</td>
