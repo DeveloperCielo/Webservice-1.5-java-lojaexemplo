@@ -34,7 +34,7 @@ public class Loja {
 	
 	public static Loja valueOf(long numeroLoja) {
 		if (numeroLoja == 0L) {
-			return new Loja(numeroLoja, "XXXX");
+			return new Loja(numeroLoja, "1006993069");
 			
 		}
 		

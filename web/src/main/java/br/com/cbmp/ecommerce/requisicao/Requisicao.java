@@ -58,7 +58,7 @@ public class Requisicao {
 		this.mensagem = mensagem;
 	}
 
-	public Transacao enviarPara(Destino destino) throws FalhaComunicaoException {
+	public Resposta enviarPara(Destino destino) throws FalhaComunicaoException {
 		String mensagemXml = mensagem.toXml();
 		
 		PostMethod httpMethod = new PostMethod(destino.getUrl());
@@ -88,7 +88,7 @@ public class Requisicao {
 			Resposta resposta = RespostaFactory.getInstance().criar(respostaXml);
 			
 			if (resposta.getId() != null && ! mensagem.getId().equals(resposta.getId())) {
-				throw new IllegalArgumentException("Resposta inválida: idRecebido='" + resposta.getId()
+				throw new IllegalArgumentException("Resposta invï¿½lida: idRecebido='" + resposta.getId()
 						+ "', idEnviado='" + mensagem.getId() + "'.");
 			}
 			
@@ -97,9 +97,9 @@ public class Requisicao {
 				throw new RequisicaoInvalidaException(erro);
 			}
 			
-			Transacao transacao = (Transacao) resposta;
+//			Transacao transacao = (Transacao) resposta;
 			
-			return transacao;
+			return resposta;
 		} 
 		catch (HttpException e) {
 			logger.error(e, e);

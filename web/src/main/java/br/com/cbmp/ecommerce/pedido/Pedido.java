@@ -2,6 +2,8 @@ package br.com.cbmp.ecommerce.pedido;
 
 import java.util.Date;
 
+import br.com.cbmp.ecommerce.resposta.Resposta;
+import br.com.cbmp.ecommerce.resposta.RetornoToken;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.math.RandomUtils;
@@ -21,6 +23,8 @@ public class Pedido {
 	private Date data;
 	
 	private Transacao transacao;
+
+	private RetornoToken retornoToken;
 	
 	private FormaPagamento formaPagamento;
 	
@@ -61,28 +65,36 @@ public class Pedido {
 		this.numero = String.valueOf(RandomUtils.nextInt());
 	}
 
+	public RetornoToken getRetornoToken() {
+		return retornoToken;
+	}
+
+	public void setRetornoToken(RetornoToken retornoToken) {
+		this.retornoToken = retornoToken;
+	}
+
 	public Transacao criarTransacao() throws FalhaComunicaoException {
-		transacao = getTransacaoService().criarTransacao(this);
+		transacao = (Transacao) getTransacaoService().criarTransacao(this);
 		return transacao;
 	}
 	
-	public Transacao criarToken() throws FalhaComunicaoException {
-		transacao = getTransacaoService().criarToken(this);
-		return transacao;
+	public RetornoToken criarToken() throws FalhaComunicaoException {
+		retornoToken = getTransacaoService().criarToken(this);
+		return retornoToken;
 	}
 	
 	public Transacao cancelarTransacao(long valorCancelamento) throws FalhaComunicaoException {
-		transacao = getTransacaoService().cancelar(transacao, valorCancelamento);
+		transacao = (Transacao) getTransacaoService().cancelar(transacao, valorCancelamento);
 		return transacao;
 	}
 	
 	public Transacao capturarTransacao(long valor, long valorTaxaEmbarque) throws FalhaComunicaoException {
-		transacao = getTransacaoService().capturar(transacao, valor, valorTaxaEmbarque);
+		transacao = (Transacao) getTransacaoService().capturar(transacao, valor, valorTaxaEmbarque);
 		return transacao;		
 	}
 	
 	public Transacao consultarTransacao() throws FalhaComunicaoException {
-		transacao = getTransacaoService().consultar(transacao);
+		transacao = (Transacao) getTransacaoService().consultar(transacao);
 		return transacao;		
 	}
 	
@@ -91,13 +103,13 @@ public class Pedido {
 			return isPedidoFinalizado();
 		}
 		
-		transacao = getTransacaoService().consultar(transacao);
+		transacao = (Transacao) getTransacaoService().consultar(transacao);
 		return isPedidoFinalizado();
 	}
 	
 	public boolean finalizarComAutorizacaoDireta() throws FalhaComunicaoException {
 		autorizacaoDireta = true;
-		transacao = getTransacaoService().autorizarDireto(this);
+		transacao = (Transacao) getTransacaoService().autorizarDireto(this);
 		return isPedidoFinalizado();		
 	}
 
@@ -108,7 +120,7 @@ public class Pedido {
 	}
 	
 	public Transacao autorizarTransacao() throws FalhaComunicaoException {
-		transacao = getTransacaoService().autorizar(transacao);
+		transacao = (Transacao) getTransacaoService().autorizar(transacao);
 		return transacao;		
 	}
 
@@ -146,7 +158,7 @@ public class Pedido {
 	}
 
 	public ConfiguracaoTransacao getConfiguracaoTransacao() {
-		// caso não esteja definido, retorna a configuração default
+		// caso nï¿½o esteja definido, retorna a configuraï¿½ï¿½o default
 		return configuracaoTransacao != null ? configuracaoTransacao : new ConfiguracaoTransacao();
 	}
 

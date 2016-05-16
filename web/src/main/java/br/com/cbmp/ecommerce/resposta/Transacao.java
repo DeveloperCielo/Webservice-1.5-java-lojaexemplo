@@ -10,6 +10,10 @@ import br.com.cbmp.ecommerce.pedido.StatusTransacao;
 
 public class Transacao extends Resposta {
 
+	public Transacao() {
+		super();
+	}
+
 	class FormaPagamento {
 		String bandeira;
 		String produto;
@@ -35,6 +39,11 @@ public class Transacao extends Resposta {
 	}
 
 	public class Processamento {
+
+		public Processamento() {
+			super();
+		}
+
 		short codigo;
 		String mensagem;
 		String dataHora;
@@ -106,6 +115,11 @@ public class Transacao extends Resposta {
 	}
 
 	public class Token extends Processamento {
+
+		public Token() {
+			super();
+		}
+
 		private DadosToken dadosToken;
 		private Erro erro;
 
@@ -197,7 +211,7 @@ public class Transacao extends Resposta {
 			return token;
 		}
 	}
-	//Classe para tratar transação com número de celular
+	//Classe para tratar transaï¿½ï¿½o com nï¿½mero de celular
 	public class DadosPortadorCelular {
 		
 		private Celular celular;

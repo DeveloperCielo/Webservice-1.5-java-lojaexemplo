@@ -35,7 +35,7 @@ public class RespostaFactory {
 		xStream.alias("transacao", Transacao.class);
 		xStream.alias("retorno-tid", Transacao.class);
 		
-		xStream.alias("retorno-token", Transacao.class);
+		xStream.alias("retorno-token", RetornoToken.class);
 		xStream.alias("token", Token.class);
 		xStream.alias("dados-token", DadosToken.class);
 		

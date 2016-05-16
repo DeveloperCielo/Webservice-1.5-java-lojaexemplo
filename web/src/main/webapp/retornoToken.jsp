@@ -4,10 +4,11 @@
 <%@page import="br.com.cbmp.ecommerce.pedido.Pedido"%>
 <%@page import="br.com.cbmp.ecommerce.util.web.WebUtils"%>
 <%@page import="java.util.Date"%>
+<%@ page import="br.com.cbmp.ecommerce.resposta.RetornoToken" %>
 <%
 	Pedido pedido = new WebUtils(request).recuperarUltimoPedido();
 
-	Transacao transacao = pedido.getTransacao();
+	RetornoToken transacao = pedido.getRetornoToken();
 	
 	DadosToken dadosToken = transacao.getToken().getDadosToken();	
 	
@@ -20,8 +21,8 @@
 		<h3>Fechamento (<%= new Date() %>)</h3>
 		<table border="1">
 			<tr>
-				<th>Cód Token</th>
-				<th>N° Cartão</th>
+				<th>Cï¿½d Token</th>
+				<th>Nï¿½ Cartï¿½o</th>
 				<th>Status</th>				
 			</tr>
 			<tr>

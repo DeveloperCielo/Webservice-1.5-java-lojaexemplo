@@ -17,6 +17,8 @@ import br.com.cbmp.ecommerce.requisicao.MensagemRequisicaoToken;
 import br.com.cbmp.ecommerce.requisicao.MensagemTid;
 import br.com.cbmp.ecommerce.requisicao.Requisicao;
 import br.com.cbmp.ecommerce.resposta.FalhaComunicaoException;
+import br.com.cbmp.ecommerce.resposta.Resposta;
+import br.com.cbmp.ecommerce.resposta.RetornoToken;
 import br.com.cbmp.ecommerce.resposta.Transacao;
 
 public class TransacaoService {
@@ -29,19 +31,19 @@ public class TransacaoService {
 		this.loja = loja;
 	}	
 	
-	public Transacao criarTransacao(Pedido pedido) throws FalhaComunicaoException {
+	public Resposta criarTransacao(Pedido pedido) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemNovaTransacao(loja, pedido);
 		Requisicao requisicao = new Requisicao(mensagem);
 		return requisicao.enviarPara(destino);
 	}
 
-	public Transacao capturar(Transacao transacao, long valor, long valorTaxaEmbarque) throws FalhaComunicaoException {
+	public Resposta capturar(Transacao transacao, long valor, long valorTaxaEmbarque) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemCaptura(loja, transacao, valor, valorTaxaEmbarque);
 		Requisicao requisicao = new Requisicao(mensagem);
 		return requisicao.enviarPara(destino);
 	}
 	
-	public Transacao cancelar(Transacao transacao, long valorCancelamento) throws FalhaComunicaoException {
+	public Resposta cancelar(Transacao transacao, long valorCancelamento) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemCancelamento(loja, transacao, valorCancelamento);
 		Requisicao requisicao = new Requisicao(mensagem);
 		return requisicao.enviarPara(destino);
@@ -49,16 +51,16 @@ public class TransacaoService {
 
 	
 	
-	public Transacao criarToken(Pedido pedido) throws FalhaComunicaoException {
+	public RetornoToken criarToken(Pedido pedido) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemRequisicaoToken(loja, pedido);
 		Requisicao requisicao = new Requisicao(mensagem);
-		return requisicao.enviarPara(destino);
+		return (RetornoToken) requisicao.enviarPara(destino);
 	}
 	
-	public Transacao autorizarDireto(Pedido pedido) throws FalhaComunicaoException {
+	public Resposta autorizarDireto(Pedido pedido) throws FalhaComunicaoException {
 		MensagemTid mensagemTid = new MensagemTid(loja, pedido.getFormaPagamento());
 		Requisicao requisicaoTid = new Requisicao(mensagemTid);
-		String tid = requisicaoTid.enviarPara(destino).getTid();
+		String tid = ((Transacao) requisicaoTid.enviarPara(destino)).getTid();
 		
 		MensagemAutorizacaoDireta mensagemAutorizacaoDireta = 
 			new MensagemAutorizacaoDireta(loja)
@@ -70,13 +72,13 @@ public class TransacaoService {
 	}
 	
 	
-	public Transacao autorizar(Transacao transacao) throws FalhaComunicaoException {
+	public Resposta autorizar(Transacao transacao) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemAutorizacao(loja, transacao);
 		Requisicao requisicao = new Requisicao(mensagem);
 		return requisicao.enviarPara(destino);
 	}
 
-	public Transacao consultar(Transacao transacao) throws FalhaComunicaoException {
+	public Resposta consultar(Transacao transacao) throws FalhaComunicaoException {
 		Mensagem mensagem = new MensagemConsulta(loja, transacao);
 		Requisicao requisicao = new Requisicao(mensagem);
 		return requisicao.enviarPara(destino);
